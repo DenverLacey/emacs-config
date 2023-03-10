@@ -3,7 +3,12 @@
 (defvar --backup-directory (concat user-emacs-directory "/backups"))
 (if (not (file-exists-p --backup-directory))
     (make-directory --backup-directory))
-(setq backup-directory-alist --backup-directory)
+
+(defvar --auto-saves-directory (concat user-emacs-directory "/auto-save-list"))
+(if (not (file-exists-p --auto-saves-directory))
+    (make-directory --auto-saves-directory))
+
+(setq backup-directory-alist `((".*" . ,--backup-directory)))
 (setq make-backup-files t          ; backup of a file the first time it is saved
       backup-by-copying t          ; don't clobber symlinks
       version-control t            ; version numbers for backup files
@@ -16,6 +21,8 @@
       auto-save-interval 200       ; number of keystrokes between auto-saves (default: 300)
       )
 
+(setq auto-save-file-name-transforms `((".*" ,--auto-saves-directory t)))
+
 ;; make emacs startup in a maximised frame
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -23,7 +30,8 @@
 (defvar --theme-directory (concat user-emacs-directory "/themes"))
 (if (not (file-exists-p --theme-directory))
     (make-directory --theme-directory))
-(setq custom-theme-directory --theme-directory)
+(add-to-list 'custom-theme-load-path --theme-directory)
+(load-theme 'brin t)
 
 (add-to-list 'default-frame-alist '(font . "Fira Code Light"))
 (set-face-attribute 'default t :font "Fira Code Light")
