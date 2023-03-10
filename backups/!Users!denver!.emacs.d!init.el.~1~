@@ -43,8 +43,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("4363ac3323e57147141341a629a19f1398ea4c0b25c79a6661f20ffc44fdd2cb" default))
  '(package-selected-packages '(use-package)))
 
 (custom-set-faces
